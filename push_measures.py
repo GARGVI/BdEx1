@@ -96,6 +96,11 @@ cookie = login()
 
 fn = os.path.join(os.path.abspath(os.path.dirname(__file__)), "Input\measures_hourly_test.csv")
 
+lastMeteringPointId = None
+amon_measures = {}
+measurements = []
+readers = []
+
 for chunk in pd.read_csv(fn, sep =';', encoding='utf8', chunksize=10000, names= ['meteringPointId','timestamp','value','period','unit','type' ]):
     for row in chunk.itertuples():
         if lastMeteringPointId and lastMeteringPointId != row.meteringPointId:
